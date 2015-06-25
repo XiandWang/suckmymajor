@@ -1,0 +1,8 @@
+<li>
+	<%= link_to major.name, major  %> |
+		<% if current_user.joined?(major) %>
+			<%= render 'quit', major: major%>
+		<% else %>
+			<%= render 'join', major: major %>
+		<% end %>
+</li>

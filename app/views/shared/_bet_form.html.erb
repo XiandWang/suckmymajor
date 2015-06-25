@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+<div class="panel-heading">
+  <h1 class="center">Create my own bet</h1>
+</div>
+<div class="panel-body">
+<%= form_for(@bet, html: {multipart: true}) do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
+	    <div class="form-group">
+        <%= f.label :status %><br>
+        I am: <%= f.select :status, ["studying", "procrastinating"], class:"form-control" %>
+      </div>
+
+      <div class="radio form-group">
+        <b>Are you lying?</b><br>
+        <label> 
+          <input type="radio" name="bet[lying]" id="bet_lying_true" value="true">
+          Yes, and those who think it true lose the bet!
+        </label>
+      </div>
+
+      <div class="radio form-group">
+        <label> 
+          <input type="radio" name="bet[lying]" id="bet_lying_false" value="false">
+          No, and those who think me lying lose the bet!
+        </label>
+      </div>
+
+      <div class="form-grpup">
+        <%= f.label :proof %>:<br>
+        <%= f.text_area :proof, class:"form-control", placeholder: "Can leave it blank" %>
+      </div>
+      <br>
+      <div class="form-group" style="padding-left: 5px;">
+        <%= f.submit "Submit", class: "btn btn-primary" %>
+      </div>
+
+      <span>
+        <%= f.file_field :picture, accept:  'image/jpeg, image/gif, image/png' %>
+      </span>
+<% end %>
+</div>
+</div>
+  

@@ -1,0 +1,26 @@
+<li id="bet-<%= bet.id %>"> 
+  <%= link_to gravatar_for(bet.user, size:50), bet.user %>
+  <span class="user">
+	  <%= link_to bet.user.name, bet.user  %>
+  </span>
+  <span class="status">
+	  <%= bet.status %>
+  </span>
+  <span class="picture">
+	  <%= image_tag bet.picture.url if bet.picture? %>
+  </span>
+  <span class="stats">
+    <%= render 'bets/bet_stats', bet: bet %>
+  </span>
+  <% if current_user.liked?(bet) || current_user.disliked?(bet) %>
+    <span class="results">
+      
+    </span>
+  <% end %>
+  <span class="timestamp">
+    <%= time_ago_in_words(bet.created_at) %>
+    <% if current_user?(bet.user) %>
+      <%= link_to "delete", bet, method: :delete, data: {confirm: "You Sure?"}  %>
+    <% end %>
+  </span>
+</li>
