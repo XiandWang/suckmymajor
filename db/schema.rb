@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616131650) do
+ActiveRecord::Schema.define(version: 20150901134904) do
 
   create_table "bets", force: :cascade do |t|
     t.string   "status"
@@ -26,11 +26,56 @@ ActiveRecord::Schema.define(version: 20150616131650) do
   add_index "bets", ["user_id", "created_at"], name: "index_bets_on_user_id_and_created_at"
   add_index "bets", ["user_id"], name: "index_bets_on_user_id"
 
+  create_table "comments", force: :cascade do |t|
+    t.string   "body"
+    t.integer  "user_id",    null: false
+    t.integer  "bet_id",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["bet_id"], name: "index_comments_on_bet_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
+  create_table "major_bet_relationships", force: :cascade do |t|
+    t.integer  "bet_id"
+    t.integer  "major_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "major_bet_relationships", ["bet_id"], name: "index_major_bet_relationships_on_bet_id"
+  add_index "major_bet_relationships", ["major_id", "bet_id"], name: "index_major_bet_relationships_on_major_id_and_bet_id", unique: true
+  add_index "major_bet_relationships", ["major_id"], name: "index_major_bet_relationships_on_major_id"
+
   create_table "majors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.boolean  "read"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "type"
+  end
+
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
+
+  create_table "results", force: :cascade do |t|
+    t.integer  "bet_id"
+    t.integer  "winner_id"
+    t.integer  "loser_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "winner_major_id"
+  end
+
+  add_index "results", ["bet_id"], name: "index_results_on_bet_id"
+  add_index "results", ["loser_id"], name: "index_results_on_loser_id"
+  add_index "results", ["winner_id"], name: "index_results_on_winner_id"
 
   create_table "user_major_relationships", force: :cascade do |t|
     t.integer  "user_id"

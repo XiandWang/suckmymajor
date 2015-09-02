@@ -1,6 +1,6 @@
 <span class="likes">
-	<%= link_to "I bet it true! (#{bet.get_likes.size})", like_bet_path(bet), class: "btn btn-success", remote: true %>
+	<%= link_to "I bet it true! (#{bet.get_likes.size})", like_bet_path(bet), class: "btn btn-primary" %>
 </span>
 <span class="dislikes">
-	<%= link_to "I bet it not! (#{bet.get_dislikes.size})", dislike_bet_path(bet), class: "btn btn-danger"%>
+	<%= link_to "I bet it not! (#{bet.get_dislikes.size})", dislike_bet_path(bet), class: "btn btn-primary" %>
 </span>

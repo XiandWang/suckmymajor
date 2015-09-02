@@ -9,11 +9,30 @@
       	<%= render "shared/bet_form" %>
       </section>
   	</aside>
-  	<div class="col-md-8">
-  	  <h3>Bet Feed</h3>
+
+  	<div class="col-md-4">
   	  <%= render 'shared/feed' %>
   	</div>
 
+    <div class="col-md-4">
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-warning">
+          <strong>
+            <span class="glyphicon glyphicon-heart"></span>
+            Today's Winnings:
+          </strong>
+        </li>
+        <% @winning_res.each do |elem| %>
+        <li class="list-group-item">
+          <span class="badge"><%= elem[1] %></span>
+          <%= elem[0].name %>
+        </li>
+        <% end %>
+        <li class="list-group-item">
+          <%= link_to "See More Major Info --->", majors_path  %>
+        </li>
+      </ul>     
+    </div>
   </div>
 
 <% else %>

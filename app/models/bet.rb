@@ -11,6 +11,26 @@ class Bet < ActiveRecord::Base
 
   acts_as_votable
 
+  has_many :comments
+
+  has_many :major_relationships, class_name: "MajorBetRelationship",
+                  foreign_key: "bet_id", dependent: :destroy
+  has_many :majors, through: :major_relationships
+
+  has_many :result_relationships, class_name: "Result",
+                  foreign_key: "bet_id", dependent: :destroy
+
+  has_many :winners, through: :result_relationships
+  has_many :losers, through: :result_relationships
+
+
+  def create_major_relationship(majors)
+    majors.each do |major|
+      # catch exception
+      major_relationships.create(major_id: major.id)
+    end
+  end
+
   private
 
     def picture_size

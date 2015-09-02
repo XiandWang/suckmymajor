@@ -1,5 +1,5 @@
 <% if @result %>
-  $("#bet-<%= @bet.id %> .results").show().append("You has won this bet").css("display", "inline");
+  $("#bet-<%= @bet.id %> .results").show();
 <% else %>
-  $("#bet-<%= @bet.id %> .results").show().append("You has lost this bet").addClass('visible');
+  $("#bet-<%= @bet.id %> .results").show();
 <% end %>

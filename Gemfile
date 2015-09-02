@@ -19,6 +19,14 @@ gem 'mini_magick', '3.8.0'
 gem 'fog', '1.23.0'
 gem 'acts_as_votable', '~> 0.10.0'
 
+gem 'redis', '~> 3.2.1'
+
+gem 'message_bus'
+
+gem 'backbone-on-rails'
+
+gem 'puma'
+
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
   gem 'byebug',      '3.4.0'

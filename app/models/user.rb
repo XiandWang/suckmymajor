@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
     has_many :major_relationships, class_name: "UserMajorRelationship", 
                       foreign_key: "user_id"
     has_many :majors, through: :major_relationships
+    has_many :comments
+    has_many :notifications
     
     acts_as_voter
 
@@ -82,6 +84,76 @@ class User < ActiveRecord::Base
     def joined?(major)
         majors.include?(major)
     end
+
+    def betted?(bet)
+        liked?(bet) || disliked?(bet)
+    end
+
+    def bet_for(bet)
+        likes(bet)
+    end
+
+    def bet_against(bet)
+        dislikes(bet)
+    end
+
+    def betted_for?(bet)
+        liked?(bet)
+    end
+
+    def betted_against?(bet)
+        disliked?(bet)
+    end
+
+    def get_bet_result(bet)
+        if betted?(bet)
+            if bet.lying? && betted_for?(bet)
+                msg = "You lost to #{bet.user.name}!"
+                return msg
+            elsif bet.lying? && betted_against?(bet)
+                msg = "You beat #{bet.user.name}!"
+                return msg
+            elsif !bet.lying? && betted_for?(bet)
+                msg = "You beat #{bet.user.name}!"
+                return msg
+            elsif !bet.lying? && betted_against?(bet)
+                msg = "You lost to #{bet.user.name}!"
+                return msg
+            end
+        end
+    end
+
+    def get_bet_winner_loser(bet)
+        if betted? bet
+            if bet.lying? && betted_for?(bet)
+                winner = bet.user
+                loser = self
+                return [winner, loser]
+            elsif bet.lying? && betted_against?(bet)
+                winner = self
+                loser = bet.user
+                return [winner, loser]
+            elsif !bet.lying? && betted_for?(bet)
+                winner = self
+                loser = bet.user
+                return [winner, loser]
+            elsif !bet.lying && betted_against?(bet)
+                winner = bet.user
+                loser = self
+                return [winner, loser]
+            end
+        else
+            return "You have not betted this."  
+        end             
+    end
+
+    def temp_access_token
+      Rails.cache.fetch("user-#{self.id}-temp_access_token-#{Time.now.strftime("%Y%m%d")}") do
+        SecureRandom.hex
+      end
+    end
+
+
     
     private
 

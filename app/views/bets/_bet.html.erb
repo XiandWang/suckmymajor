@@ -1,22 +1,19 @@
+<div class="panel panel-default">
+   <div class="panel-heading">
+
+        A <%= link_to bet.user.majors.first.name, bet.user.majors.first  %> Major said: 
+   </div>
 <li id="bet-<%= bet.id %>"> 
   <%= link_to gravatar_for(bet.user, size:50), bet.user %>
-  <span class="user">
-	  <%= link_to bet.user.name, bet.user  %>
-  </span>
+
   <span class="status">
-	  <%= bet.status %>
+	  I am <%= bet.status %>
   </span>
-  <span class="picture">
-	  <%= image_tag bet.picture.url if bet.picture? %>
-  </span>
+
   <span class="stats">
     <%= render 'bets/bet_stats', bet: bet %>
   </span>
-  <% if current_user.liked?(bet) || current_user.disliked?(bet) %>
-    <span class="results">
-      
-    </span>
-  <% end %>
+
   <span class="timestamp">
     <%= time_ago_in_words(bet.created_at) %>
     <% if current_user?(bet.user) %>
@@ -24,3 +21,17 @@
     <% end %>
   </span>
 </li>
+<div class="panel-footer">
+  <span class="results">
+       <% if current_user.betted?(bet) %>
+       <%= current_user.get_bet_result(bet) %>
+       <% end %>
+  </span>
+
+  <span class="comments pull-right"> 
+    <% if current_user.betted? bet %> 
+    <%= link_to "See Comments", bet_path(bet) %>
+    <% end %>
+  </span>
+</div>
+</div>

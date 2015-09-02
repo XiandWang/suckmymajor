@@ -2,10 +2,16 @@ class BetsController < ApplicationController
 	before_action :logged_in_user, only: [:create, :destroy]
 	before_action :correct_user, only: [:destroy]
 
+	def show
+	  @bet = Bet.find(params[:id])
+	  @comments = @bet.comments.all
+	end
+
 	def create
 	  @bet = current_user.bets.build(bet_params)
 	  if @bet.save
 	  	flash[:success] = "Bet Placed!"
+	  	@bet.create_major_relationship(current_user.majors)
 	  	redirect_to root_url
 	  else
 	  	@feed_items = []
@@ -21,24 +27,38 @@ class BetsController < ApplicationController
 
 	def like
       @bet = Bet.find(params[:id])
-	  @bet.liked_by current_user if logged_in?
-	  @result = false
-	  if !@bet.lying?
-	  	@result = true
-	  end
-	  respond_to do |format|
-	    format.html {redirect_to root_url}
-	    format.js
+      if current_user.betted?(@bet)
+      	flash[:info] = "You already betted this."
+      	redirect_to root_url
+      else
+	    @bet.liked_by current_user if logged_in?
+	    # @result = false
+	    # if !@bet.lying?
+	  	 #  @result = true
+	    # end
+	    # respond_to do |format|
+	    #   format.html {redirect_to root_url}
+	    #   format.js
+	    # end
+	    winner, loser = current_user.get_bet_winner_loser(@bet)
+	    winner.majors.each do |major|
+	      @bet.result_relationships.create(winner_id: winner.id, loser_id: loser.id, winner_major_id: major.id)
+	    end
+	    redirect_to root_url
 	  end
 	end
 
 	def dislike
       @bet = Bet.find(params[:id])
-      if current_user.liked?(@bet) || current_user.disliked?(@bet)
+      if current_user.betted?(@bet)
       	flash[:info] = 'You already betted this.'
       	redirect_to root_url
       else
 	    @bet.disliked_by current_user if logged_in?
+	    winner, loser = current_user.get_bet_winner_loser(@bet)
+	    winner.majors.each do |major|
+	      @bet.result_relationships.create(winner_id: winner.id, loser_id: loser.id, winner_major_id: major.id)
+	    end
 	    redirect_to root_url
 	  end
 	end

@@ -15,6 +15,7 @@ $component-active-color:      #c0392b;
 ￼￼box-sizing: border-box;
 }
 
+
 section {
 	overflow:auto;
 }
@@ -145,24 +146,66 @@ aside {
 
   .status {
     display: block;
-    margin-left: 60px;
+    margin-left: 70px;
     margin-top: 5px;
   }
 
-  .picture {
-    margin-top: 10px;
-    display: block;
-  }
 
   .stats {
+    display: block;
+    margin-top: 10px;
     margin-left: 60px;
     .dislikes {
       margin-left: 10px;
     }
   }
 
+  // .results {
+  //   display: inline;
+  //   margin-left: 70px;
+  //   margin-top: 5px;
+  // }
+
+  // .comments {
+  //   display: inline;
+  //   margin-left: 70px;
+  //   margin-top: 5px;
+  // }
+
   .timestamp {
     color: $gray-light;
+    display: block;
+    margin-left: 70px;
+    margin-top: 5px;
+  }
+
+  .gravatar {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-left: 10px;
+  }
+
+  .visible {
+    display: block;
+  }
+}
+
+
+.comments {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 10px 0 5px;
+    border-top: 1px solid #e8e8e8;
+  }
+
+  .user {
+    margin-top: 5em;
+    padding-top: 0;
+  }
+
+  .body {
     display: block;
     margin-left: 60px;
     margin-top: 5px;
@@ -172,10 +215,6 @@ aside {
     float: left;
     margin-right: 10px;
     margin-top: 5px;
-  }
-
-  .visible {
-    display: block;
   }
 }
 
@@ -209,7 +248,10 @@ span.picture {
 
 
 
-
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #f00;
+ }
 
 
 

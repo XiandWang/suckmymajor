@@ -1,8 +1,15 @@
-<li>
-	<%= link_to major.name, major  %> |
+<% provide(:title, major.name) %>
+<tr>
+	<td><%= link_to major.name, major  %></td>
+	<td><%= major.get_today_studying_people %></td>
+	<td><%= major.get_today_procrastinating_people %></td>
+	<td><%= major.users.count %></td>
+	<td><%= major.get_today_winning %></td>
+	<td>		
 		<% if current_user.joined?(major) %>
 			<%= render 'quit', major: major%>
 		<% else %>
 			<%= render 'join', major: major %>
 		<% end %>
-</li>
+	</td>
+</tr>

@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'comments/new'
+
+  get 'comments/create'
+
+  get 'comments/destroy'
+
+  get 'comments/show'
+
   get 'majors/show'
 
   get 'majors/index'
@@ -26,10 +34,11 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   
-  resources :bets, only: [:create, :destroy] do
+  resources :bets, only: [:create, :destroy, :show] do
     member do
       get :like, :dislike
     end
+    resources :comments
   end
 
   resources :majors, only: [:show, :index] do
