@@ -1,0 +1,13 @@
+<br>
+<div class="panel panel-default">
+<div class="panel-heading">
+  <h5 class="center">Your Comment</h1>
+</div>
+<div class="panel-body">
+<%= form_for([current_user.comments.build], url: bet_comments_path(bet)) do |f| %> 
+ 	<%= f.text_area :body, rows: 3, class: 'form-control' %> 
+	<br>
+	<%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>
+</div>
+</div>

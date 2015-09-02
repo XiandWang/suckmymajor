@@ -1,0 +1,2 @@
+class MajorNotification < Notification
+end
