@@ -27,4 +27,9 @@ class Major < ActiveRecord::Base
 	def get_today_winning()
 		Result.where("winner_major_id = ? AND created_at >= ?", self.id, Time.now.beginning_of_day).count
 	end
+
+	def get_today_bets()
+		Bet.select("*").from("Bets, Majors, Major_Bet_Relationships").where("Majors.id = Major_Bet_Relationships.major_id AND 
+			Bets.id = Major_Bet_Relationships.bet_id AND Majors.id = ? AND Bets.created_at >= ?", self.id, Time.now.beginning_of_day)
+	end
 end
