@@ -1,11 +1,11 @@
 <% provide(:title, major.name) %>
-<tr>
+<tr id="major-<%= major.id %>">
 	<td><%= link_to major.name, major  %></td>
-	<td><%= major.get_today_studying_people %></td>
-	<td><%= major.get_today_procrastinating_people %></td>
-	<td><%= major.users.count %></td>
+	<td><%= major.today_people_for("studying") %></td>
+	<td><%= major.today_people_for("procrastinating") %></td>
+	<td class="count"><%= major.users.count %></td>
 	<td><%= major.get_today_winning %></td>
-	<td>		
+	<td class="form">		
 		<% if current_user.joined?(major) %>
 			<%= render 'quit', major: major%>
 		<% else %>

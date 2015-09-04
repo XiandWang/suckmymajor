@@ -12,16 +12,10 @@ class Major < ActiveRecord::Base
     has_many :winning_bets, through: :result_relationships, source: :bet
     has_many :winners, through: :result_relationships, source: :winner
 
-	def get_today_studying_people()
-		bet_ids = MajorBetRelationship.where("major_id = ? AND created_at >= ?", 
-			self.id, Time.now.beginning_of_day).pluck(:bet_id)
-		Bet.where("id IN (?) AND status = ?", bet_ids, "studying").count
-	end
-
-	def get_today_procrastinating_people()
-		bet_ids = MajorBetRelationship.where("major_id = ? AND created_at >= ?", 
-			self.id, Time.now.beginning_of_day).pluck(:bet_id)
-		Bet.where("id IN (?) AND status = ?", bet_ids, "procrastinating").count		
+	def today_people_for(status)
+		Bet.select("*").from("bets, Majors, Major_Bet_Relationships").where("majors.id = Major_Bet_Relationships.major_id
+			AND Bets.id = Major_Bet_Relationships.bet_id AND Majors.id = ? AND Bets.created_at >= ?
+			AND Bets.status = ?", self.id, Time.now.beginning_of_day, status).count
 	end
 
 	def get_today_winning()
@@ -30,6 +24,14 @@ class Major < ActiveRecord::Base
 
 	def get_today_bets()
 		Bet.select("*").from("Bets, Majors, Major_Bet_Relationships").where("Majors.id = Major_Bet_Relationships.major_id AND 
-			Bets.id = Major_Bet_Relationships.bet_id AND Majors.id = ? AND Bets.created_at >= ?", self.id, Time.now.beginning_of_day)
+			Bets.id = Major_Bet_Relationships.bet_id AND Majors.id = ? AND Bets.created_at >= ?", 
+			self.id, Time.now.beginning_of_day).limit(20)
 	end
+
+	def today_people(status, lying)
+		Bet.select("*").from("bets, Majors, Major_Bet_Relationships").where("majors.id = Major_Bet_Relationships.major_id
+			AND Bets.id = Major_Bet_Relationships.bet_id AND Majors.id = ? AND Bets.created_at >= ?
+			AND Bets.status = ? AND Bets.lying = ?", self.id, Time.now.beginning_of_day, status, lying).count		
+	end
+
 end

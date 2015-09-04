@@ -34,7 +34,7 @@ class BetsController < ApplicationController
 	    @bet.liked_by current_user if logged_in?
 	    # @result = false
 	    # if !@bet.lying?
-	  	 #  @result = true
+	  	#   @result = true
 	    # end
 	    # respond_to do |format|
 	    #   format.html {redirect_to root_url}
@@ -44,7 +44,10 @@ class BetsController < ApplicationController
 	    winner.majors.each do |major|
 	      @bet.result_relationships.create(winner_id: winner.id, loser_id: loser.id, winner_major_id: major.id)
 	    end
-	    redirect_to root_url
+	    respond_to do |format|
+	      format.html {redirect_to root_url}
+	      format.js
+	    end
 	  end
 	end
 

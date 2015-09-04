@@ -1,2 +1,17 @@
 <%= provide(:title, @major.name) %>
 <h1><%= @major.name %></h1>
+<div class="row">
+	<div class="col-md-4">
+	  <ul class="list-group">
+  	    <li class="list-group-item list-group-item-success">Today's summary</li>
+  	    <li class="list-group-item">Studying: <%= @major.today_people_for("studying") %></li>
+  		<li class="list-group-item">Really Studying: <%= @major.today_people("studying", false) %></li>
+		<li class="list-group-item">Procrastinating: <%= @major.today_people_for("procrastinating") %></li>
+		<li class="list-group-item">Really Procrastinating: <%= @major.today_people("procrastinating", false) %> </li>
+      </ul>
+	</div>
+
+	<div class="col-md-8">
+        <%= render "bets/major_bets", bets: @bets %>
+	</div>
+</div>

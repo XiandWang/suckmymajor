@@ -1,0 +1,2 @@
+$("#majors #major-<%= @major.id %> .form").html("<%= j render('majors/quit', major: @major) %>");
+$("#majors #major-<%= @major.id %> .count").html("<%= @major.users.count %>");

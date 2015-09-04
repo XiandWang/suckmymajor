@@ -1,37 +1,35 @@
-<div class="panel panel-default">
-   <div class="panel-heading">
+<div class="panel panel-default" id="bet-<%= bet.id %>">
+  <div class="panel-heading">
+    A <%= link_to bet.user.majors.first.name, bet.user.majors.first  %> Major said: 
+  </div>
+  <li> 
+    <%= link_to gravatar_for(bet.user, size:50), bet.user %>
+      <span class="status">
+      	  I am <%= bet.status %>
+      </span>
 
-        A <%= link_to bet.user.majors.first.name, bet.user.majors.first  %> Major said: 
-   </div>
-<li id="bet-<%= bet.id %>"> 
-  <%= link_to gravatar_for(bet.user, size:50), bet.user %>
+      <span class="stats">
+        <%= render 'bets/bet_stats', bet: bet %>
+      </span>
 
-  <span class="status">
-	  I am <%= bet.status %>
-  </span>
+      <span class="timestamp">
+        <%= time_ago_in_words(bet.created_at) %>
+          <% if current_user?(bet.user) %>
+            <%= link_to "delete", bet, method: :delete, data: {confirm: "You Sure?"}  %>
+          <% end %>
+      </span>
+  </li>
+  <div class="panel-footer">
+    <span class="results">
+      <% if current_user.betted?(bet) %>
+      <%= current_user.get_bet_result(bet) %>
+      <% end %>
+    </span>
 
-  <span class="stats">
-    <%= render 'bets/bet_stats', bet: bet %>
-  </span>
-
-  <span class="timestamp">
-    <%= time_ago_in_words(bet.created_at) %>
-    <% if current_user?(bet.user) %>
-      <%= link_to "delete", bet, method: :delete, data: {confirm: "You Sure?"}  %>
-    <% end %>
-  </span>
-</li>
-<div class="panel-footer">
-  <span class="results">
-       <% if current_user.betted?(bet) %>
-       <%= current_user.get_bet_result(bet) %>
-       <% end %>
-  </span>
-
-  <span class="comments pull-right"> 
-    <% if current_user.betted? bet %> 
-    <%= link_to "See Comments", bet_path(bet) %>
-    <% end %>
-  </span>
-</div>
+    <span class="comments pull-right"> 
+      <% if current_user.betted? bet %> 
+      <%= link_to "See Comments", bet_path(bet) %>
+      <% end %>
+    </span>
+  </div>
 </div>

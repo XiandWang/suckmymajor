@@ -1,0 +1,24 @@
+<li class="media" id="bet-<%= bet.id %>"> 
+  <div class="media-left user">
+    <%= link_to gravatar_for(bet.user, size:50), bet.user %>
+  </div>
+  <div class="media-body status">
+    <% if !bet.lying %>
+	  <%= bet.user.name %> is really <%= bet.status %>!
+    <% else %>
+    <%= bet.user.name %> is not <%= bet.status %>
+    <% end %>
+    <span class="timestamp">
+      <%= time_ago_in_words(bet.created_at) %>
+    </span>
+  </div>
+
+
+<!--   <span class="timestamp">
+    <%= time_ago_in_words(bet.created_at) %>
+    <% if current_user?(bet.user) %>
+      <%= link_to "delete", bet, method: :delete, data: {confirm: "You Sure?"}  %>
+    <% end %>
+  </span> -->
+</li>
+

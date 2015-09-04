@@ -126,7 +126,7 @@ aside {
   li {
     overflow: auto;
     padding: 10px 0;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #e8e8e8;
   }
 }
 
@@ -160,18 +160,6 @@ aside {
     }
   }
 
-  // .results {
-  //   display: inline;
-  //   margin-left: 70px;
-  //   margin-top: 5px;
-  // }
-
-  // .comments {
-  //   display: inline;
-  //   margin-left: 70px;
-  //   margin-top: 5px;
-  // }
-
   .timestamp {
     color: $gray-light;
     display: block;
@@ -191,6 +179,19 @@ aside {
   }
 }
 
+.major_bets {
+  li {
+    overflow: auto;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e8e8e8;
+
+    .timestamp {
+      color: $gray-light;
+      margin-left: 1em;
+    }
+  }
+
+}
 
 .comments {
   list-style: none;

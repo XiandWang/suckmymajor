@@ -43,7 +43,7 @@ Rails.application.routes.draw do
 
   resources :majors, only: [:show, :index] do
     member do
-      get :users
+      get :students
     end
   end
 
