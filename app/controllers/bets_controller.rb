@@ -9,16 +9,22 @@ class BetsController < ApplicationController
 
 	def create
 	  @bet = current_user.bets.build(bet_params)
+	  @result = false
 	  if @bet.save
-	  	flash[:success] = "Bet Placed!"
+	  	#flash[:success] = "Bet Placed!"
 	  	@bet.create_major_relationship(current_user.majors)
+	  	@result = true
 	  	respond_to do |format|
 	  	  format.html {redirect_to root_url}
 	  	  format.js
 	  	end
 	  else
 	  	@feed_items = []
-	  	render 'pages/home'
+	  	@winning_res = []
+	  	respond_to do |format|
+	  	  format.html {render 'pages/home'}
+	  	  format.js  
+	  	end
 	  end
 	end
 

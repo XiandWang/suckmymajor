@@ -1,1 +1,7 @@
-$("#feed").prepend("<%= j render("bets/bet", bet:@bet) %>");
+<% if @result %>
+  alert("Bet placed successfully!");
+  $("#feed").prepend("<%= j render("bets/bet", bet:@bet) %>");
+  $("#bet-<%= @bet.id %>").css({'background-color': '#ffff8e0'}).animate({'background-color': "#ffffff"}, 1000);
+<% else %>
+  $(document).find("form").prepend('<%= j render("shared/error_messages", object: @bet) %>');
+<% end %>
