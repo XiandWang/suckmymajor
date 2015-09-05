@@ -3,7 +3,7 @@
   <h1>Create my own bet</h1>
 </div>
 <div class="panel-body">
-<%= form_for(@bet, html: {multipart: true}) do |f| %>
+<%= form_for(@bet, html: {multipart: true}, remote: true) do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
 	    <div class="form-group">
         <%= f.label :status %><br>

@@ -1,0 +1,11 @@
+<span class="results">
+  <% if current_user.betted?(bet) %>
+  <%= current_user.get_bet_result(bet) %>
+  <% end %>
+</span>
+
+<span class="comments pull-right"> 
+  <% if current_user.betted? bet %> 
+  <%= link_to "See Comments", bet_path(bet) %>
+  <% end %>
+</span>

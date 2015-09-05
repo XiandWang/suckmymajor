@@ -12,7 +12,10 @@ class BetsController < ApplicationController
 	  if @bet.save
 	  	flash[:success] = "Bet Placed!"
 	  	@bet.create_major_relationship(current_user.majors)
-	  	redirect_to root_url
+	  	respond_to do |format|
+	  	  format.html {redirect_to root_url}
+	  	  format.js
+	  	end
 	  else
 	  	@feed_items = []
 	  	render 'pages/home'
@@ -32,14 +35,6 @@ class BetsController < ApplicationController
       	redirect_to root_url
       else
 	    @bet.liked_by current_user if logged_in?
-	    # @result = false
-	    # if !@bet.lying?
-	  	#   @result = true
-	    # end
-	    # respond_to do |format|
-	    #   format.html {redirect_to root_url}
-	    #   format.js
-	    # end
 	    winner, loser = current_user.get_bet_winner_loser(@bet)
 	    winner.majors.each do |major|
 	      @bet.result_relationships.create(winner_id: winner.id, loser_id: loser.id, winner_major_id: major.id)
@@ -62,7 +57,10 @@ class BetsController < ApplicationController
 	    winner.majors.each do |major|
 	      @bet.result_relationships.create(winner_id: winner.id, loser_id: loser.id, winner_major_id: major.id)
 	    end
-	    redirect_to root_url
+	    respond_to do |format|
+	      format.html {redirect_to root_url}
+	      format.js
+	    end
 	  end
 	end
 
