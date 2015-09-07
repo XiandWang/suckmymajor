@@ -3,7 +3,6 @@
 <head>
   <title><%= yield(:title) %> | SMM</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -17,7 +16,7 @@
   	<%= debug(params) if Rails.env.development? %>
   </div>
 
-
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <script type="text/javascript" data-turbolinks-eval=false>
     <% if current_user %>
       App.current_user_id = <%= current_user.id %>;

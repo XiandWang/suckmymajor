@@ -1,6 +1,6 @@
 #= require jquery
 #= require jquery_ujs
-#= require jquery-ui
+#= require jquery-ui/effect
 #= require bootstrap
 #= require underscore
 #= require backbone
@@ -13,12 +13,23 @@ AppView = Backbone.View.extend
     @initNotification()
 
   initNotification: () ->
+    return if not App.access_token?
+    return if App.access_token.length < 5
     MessageBus.start()
     MessageBus.callbackInterval = 1000
     MessageBus.subscribe "/notifications_count/#{App.access_token}", (json) ->
+      span = $(".notification-count span")
+      link = $(".notification-count a")
+      new_title = "new"
       if json.count > 0
-        console.log "sz"
+        span.show()
         alert("dayu")
+        link.addClass("new")
+        document.title = new_title
+      else
+        span.hide()
+        link.removeClass("new")
+      span.text(json.count)
     true
 
 

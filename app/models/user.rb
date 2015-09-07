@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
     end
 
     def feed
-        Bet.where("user_id = ?", id)
+        Bet.where("created_at >= ?", Time.now.beginning_of_day)
     end
 
     def join(major)

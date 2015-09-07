@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901134904) do
+ActiveRecord::Schema.define(version: 20150907192114) do
 
   create_table "bets", force: :cascade do |t|
     t.string   "status"
@@ -60,8 +60,10 @@ ActiveRecord::Schema.define(version: 20150901134904) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "type"
+    t.integer  "bet_id"
   end
 
+  add_index "notifications", ["bet_id"], name: "index_notifications_on_bet_id"
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
 
   create_table "results", force: :cascade do |t|

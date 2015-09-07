@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'notifications/index'
+
   get 'comments/new'
 
   get 'comments/create'
@@ -48,6 +50,8 @@ Rails.application.routes.draw do
   end
 
   resources :user_major_relationships, only: [:create, :destroy]
+
+  resources :notifications, only: [:index]
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

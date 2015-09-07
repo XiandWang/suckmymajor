@@ -247,12 +247,14 @@ span.picture {
   }
 }
 
+.notification-count {
+  .count { margin-left: 4px;}
+  .new {
+    color: #F86334 !important;
+    .count { display: inline; }
+  }
+}
 
-
-.table-striped>tbody>tr:nth-child(odd)>td, 
-.table-striped>tbody>tr:nth-child(odd)>th {
-   background-color: #f00;
- }
 
 
 

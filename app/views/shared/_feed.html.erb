@@ -1,6 +1,4 @@
-<% if @feed_items.any? %>
   <ol class="bets" id="feed">
-  	<%= render @feed_items %>
+  	  <%= render @feed_items %>
   </ol>
   <%= will_paginate @feed_items %>
-<% end %>

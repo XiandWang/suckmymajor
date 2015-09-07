@@ -4,7 +4,7 @@ class BetsController < ApplicationController
 
 	def show
 	  @bet = Bet.find(params[:id])
-	  @comments = @bet.comments.all
+	  @comments = @bet.comments.find_each
 	end
 
 	def create
@@ -14,6 +14,7 @@ class BetsController < ApplicationController
 	  	#flash[:success] = "Bet Placed!"
 	  	@bet.create_major_relationship(current_user.majors)
 	  	@result = true
+	  	create_notifications(@bet.id)
 	  	respond_to do |format|
 	  	  format.html {redirect_to root_url}
 	  	  format.js
@@ -79,5 +80,14 @@ class BetsController < ApplicationController
 		def correct_user 
 		  @bet = current_user.bets.find_by(id: params[:id])
 		  redirect_to root_url if @bet.nil?
+		end
+
+		def create_notifications(bet_id)
+			current_user.majors.each do |major|
+				major_users = major.users 
+				major_users.each do |user|
+					MajorNotification.create(user_id: user.id, bet_id: bet_id, read:false)
+				end
+			end
 		end
 end
