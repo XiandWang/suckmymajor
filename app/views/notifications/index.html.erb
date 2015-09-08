@@ -1,2 +1,19 @@
-<h1>Notifications#index</h1>
-<p>Find me in app/views/notifications/index.html.erb</p>
+<% provide(:title, "Notifications") %>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div id="notifications" class="panel panel-default">
+      <div class="panel-heading">
+        <h4>Notifications</h4>
+      </div>
+      <% if @notifications.blank? %>
+        <div class="no-result panel-body">Currently, there are no notifications</div>
+      <% else %>
+      <div class="panel-body">
+        <ul class="media-list">	
+          <%= render partial: "notification", collection: @notifications %>
+        </ul>
+      </div>
+     <% end %>
+    </div>
+  </div>
+</div>

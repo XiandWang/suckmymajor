@@ -108,16 +108,16 @@ class User < ActiveRecord::Base
     def get_bet_result(bet)
         if betted?(bet)
             if bet.lying? && betted_for?(bet)
-                msg = "You lost to #{bet.user.name}!"
+                msg = "You lost to @#{bet.user.name}!"
                 return msg
             elsif bet.lying? && betted_against?(bet)
-                msg = "You beat #{bet.user.name}!"
+                msg = "You beat @#{bet.user.name}!"
                 return msg
             elsif !bet.lying? && betted_for?(bet)
-                msg = "You beat #{bet.user.name}!"
+                msg = "You beat @#{bet.user.name}!"
                 return msg
             elsif !bet.lying? && betted_against?(bet)
-                msg = "You lost to #{bet.user.name}!"
+                msg = "You lost to @#{bet.user.name}!"
                 return msg
             end
         end
