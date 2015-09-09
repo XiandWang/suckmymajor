@@ -1,5 +1,4 @@
 <% provide(:title, major.name) %>
-<% cache major do  %>
 	<tr id="major-<%= major.id %>">
 		<td><%= link_to major.name, major  %></td>
 		<td><%= major.today_people_for("studying") %></td>
@@ -14,4 +13,3 @@
 			<% end %>
 		</td>
 	</tr>
-<% end %>
