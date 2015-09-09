@@ -1,0 +1,3 @@
+class JoinNotification < Notification
+  
+end
