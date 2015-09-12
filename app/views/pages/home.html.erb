@@ -3,18 +3,29 @@
   <div class="row">
   	<aside class="col-md-4">
       <section class="user_info">
-      	<%= render 'shared/user_info' %>
+      	  <%= render 'shared/user_info' %>
       </section>
       <section class="bet_form" id="home_bet_form">
-      	<%= render "shared/bet_form" %>
+        <% if !current_user.majors.blank? %>
+      	  <%= render "shared/bet_form" %>
+        <% else %>
+          <ul class="list-group">
+          <li class="list-group-item list-group-item-danger">
+            <strong>
+              Warning:
+            </strong>
+          </li>
+          <li class="list-group-item"><%= link_to "Please join a major first", majors_path %></li>
+          </ul>
+        <% end %>
       </section>
   	</aside>
 
-  	<div class="col-md-4">
+  	<div class="col-md-5">
   	  <%= render 'shared/feed' %>
   	</div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
       <ul class="list-group">
         <li class="list-group-item list-group-item-warning">
           <strong>
@@ -22,7 +33,11 @@
             Today's Winnings:
           </strong>
         </li>
-
+        <% @winning_res.each do |res| %>
+        <li class="list-group-item"><%= link_to Major.find(res[0]).name, major_path(res[0]) %> 
+          <span class="badge"><%= res[1] %></span>
+        </li>
+        <% end %>
         <li class="list-group-item">
           <%= link_to "See More Major Info --->", majors_path  %>
         </li>

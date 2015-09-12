@@ -7,4 +7,9 @@ class Result < ActiveRecord::Base
 	validates :winner_id, presence: true
 	validates :loser_id, presence: true
 	validates :winner_major_id, presence: true
+
+
+	def self.get_winning_results()
+	  Result.select("*").where("created_at > ?", Time.now.beginning_of_day).group("winner_major_id").count.to_a
+	end
 end

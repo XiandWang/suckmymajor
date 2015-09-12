@@ -1,6 +1,8 @@
 <div class="panel panel-default" id="bet-<%= bet.id %>">
   <div class="panel-heading">
-    A <%= link_to bet.user.majors.first.name, bet.user.majors.first  %> Major said: 
+    <% if !bet.user.majors.blank? %>
+      A <%= link_to bet.user.majors.first.name, bet.user.majors.first  %> Major said:
+    <% end %> 
   </div>
   <li> 
     <%= link_to gravatar_for(bet.user, size:50), bet.user %>

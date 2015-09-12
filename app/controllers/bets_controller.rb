@@ -1,6 +1,7 @@
 class BetsController < ApplicationController
 	before_action :logged_in_user, only: [:create, :destroy]
 	before_action :correct_user, only: [:destroy]
+	before_action :check_major, only: [:create, :like, :dislike]
 
 	def show
 	  @bet = Bet.find(params[:id])
@@ -11,7 +12,7 @@ class BetsController < ApplicationController
 	  @bet = current_user.bets.build(bet_params)
 	  @result = false
 	  if @bet.save
-	  	#flash[:success] = "Bet Placed!"
+	  	flash[:success] = "Bet Placed!"
 	  	@bet.create_major_relationship(current_user.majors)
 	  	@result = true
 	  	create_notifications(@bet.id)
@@ -88,6 +89,13 @@ class BetsController < ApplicationController
 				major_users.each do |user|
 					MajorNotification.create(user_id: user.id, bet_id: bet_id, read:false)
 				end
+			end
+		end
+
+		def check_major
+			if current_user.majors.blank?
+				flash[:danger] = "Please join a major first like the others."
+				redirect_to majors_url
 			end
 		end
 end

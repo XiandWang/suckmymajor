@@ -1,3 +1,5 @@
 <%= link_to gravatar_for(current_user, size:50), current_user %>
 <h1><%= current_user.name %></h1>
-<span style="padding-top:1em;"><%= link_to "Go to my major first", current_user.majors.first %></span>
+<% if !current_user.majors.blank? %>
+   <span style="padding-top:1em;"><%= link_to "Go to my major first", current_user.majors.first %></span>
+<% end %>
