@@ -21,7 +21,7 @@ class Bet < ActiveRecord::Base
   has_many :winners, through: :result_relationships
   has_many :losers, through: :result_relationships
 
-  has_many :major_notifications
+  has_many :major_notifications, dependent: :destroy
 
 
   def create_major_relationship(majors)

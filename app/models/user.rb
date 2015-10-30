@@ -14,10 +14,10 @@ class User < ActiveRecord::Base
 
     has_many :bets, dependent: :destroy
     has_many :major_relationships, class_name: "UserMajorRelationship", 
-                      foreign_key: "user_id"
+                      foreign_key: "user_id", dependent: :destroy
     has_many :majors, through: :major_relationships
-    has_many :comments
-    has_many :notifications
+    has_many :comments, dependent: :destroy
+    has_many :notifications, dependent: :destroy
     
     acts_as_voter
 

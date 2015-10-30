@@ -1,10 +1,10 @@
 <div class="panel panel-primary">
-<div class="panel-heading">
-  <h1>Create my own bet</h1>
-</div>
-<div class="panel-body">
-<%= form_for(@bet, html: {multipart: true}, remote: true) do |f| %>
-	<%= render 'shared/error_messages', object: f.object %>
+  <div class="panel-heading">
+    <h1>Create my own bet</h1>
+  </div>
+  <div class="panel-body">
+    <%= form_for(@bet, html: {multipart: true}, remote: true) do |f| %>
+	    <%= render 'shared/error_messages', object: f.object %>
 	    <div class="form-group">
         <%= f.label :status %><br>
         I am: <%= f.select :status, ["studying", "procrastinating"], class:"form-control" %>
@@ -28,8 +28,7 @@
       <div class="form-group" style="padding-left: 5px;">
         <%= f.submit "Submit", class: "btn btn-primary" %>
       </div>
-
-<% end %>
-</div>
+    <% end %>
+  </div>
 </div>
   
