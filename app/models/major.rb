@@ -1,14 +1,16 @@
 class Major < ActiveRecord::Base
 	validates :name, presence: true, uniqueness: true, length: {maximum: 255}
 	has_many :user_relationships, class_name: "UserMajorRelationship",
-								  foreign_key: "major_id"
+								  foreign_key: "major_id",
+								  dependent: :destroy
 	has_many :users, through: :user_relationships
 	has_many :bet_relationships, class_name: "MajorBetRelationship",
-									foreign_key: "major_id"
+									foreign_key: "major_id",
+									dependent: :destroy
 	has_many :bets, through: :bet_relationships
     
 
-    has_many :result_relationships, class_name: "Result", foreign_key: "winner_major_id"
+    has_many :result_relationships, class_name: "Result", foreign_key: "winner_major_id", dependent: :destroy
     has_many :winning_bets, through: :result_relationships, source: :bet
     has_many :winners, through: :result_relationships, source: :winner
 

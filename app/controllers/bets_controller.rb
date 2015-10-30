@@ -12,7 +12,6 @@ class BetsController < ApplicationController
 	  @bet = current_user.bets.build(bet_params)
 	  @result = false
 	  if @bet.save
-	  	flash[:success] = "Bet Placed!"
 	  	@bet.create_major_relationship(current_user.majors)
 	  	@result = true
 	  	create_notifications(@bet.id)

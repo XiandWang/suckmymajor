@@ -9,7 +9,6 @@
     <% end %>
     <span class="timestamp pull-right">
     	<%= time_ago_in_words(major_notification.created_at) %>
-    	<%= link_to "delete", notification_path(major_notification), method: :delete  %>
     </span>
   </div>
 </li>

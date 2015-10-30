@@ -9,4 +9,10 @@ class NotificationsController < ApplicationController
     @notification.destroy
     redirect_to notifications_path 
   end
+
+  def clear
+  	current_user.notifications.delete_all
+  	flash[:success] = "All notifications deleted."
+  	redirect_to root_url
+  end
 end
