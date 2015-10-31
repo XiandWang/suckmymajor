@@ -25,9 +25,9 @@ class Major < ActiveRecord::Base
 	end
 
 	def get_today_bets()
-		Bet.select("*").from("Bets, Majors, Major_Bet_Relationships").where("Majors.id = Major_Bet_Relationships.major_id AND 
-			Bets.id = Major_Bet_Relationships.bet_id AND Majors.id = ? AND Bets.created_at >= ?", 
-			self.id, Time.now.beginning_of_day).limit(20)
+		Bet.joins('inner join major_bet_relationships on bets.id = major_bet_relationships.bet_id 
+			inner join majors on majors.id = major_bet_relationships.major_id').where(
+			'bets.created_at >= ? and majors.id = ?', Time.now.beginning_of_day, self.id).limit(20)
 	end
 
 	def today_people(status, lying)

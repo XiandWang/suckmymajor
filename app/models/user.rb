@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
     has_many :majors, through: :major_relationships
     has_many :comments, dependent: :destroy
     has_many :notifications, dependent: :destroy
+
+    has_many :likes_relationships, class_name: "Like", foreign_key: "user_id", dependent: :destroy
+    has_many :liked_bets, through: :likes_relationships, source: :bet
     
     acts_as_voter
 
@@ -153,6 +156,13 @@ class User < ActiveRecord::Base
       end
     end
 
+    def like_status(bet)
+        likes_relationships.create(bet_id: bet.id)
+    end
+
+    def liked_status?(bet)
+        liked_bets.include?(bet)
+    end
 
     
     private

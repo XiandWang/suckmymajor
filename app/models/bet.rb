@@ -23,6 +23,9 @@ class Bet < ActiveRecord::Base
 
   has_many :major_notifications, dependent: :destroy
 
+  has_many :likes_relationships, class_name: "Like", foreign_key: "bet_id", dependent: :destroy
+  has_many :liked_users, through: :likes_relationships, source: :user
+
 
   def create_major_relationship(majors)
     majors.each do |major|
