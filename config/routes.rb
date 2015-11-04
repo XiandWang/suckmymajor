@@ -1,23 +1,8 @@
 Rails.application.routes.draw do
   get 'notifications/index'
 
-  get 'comments/new'
 
-  get 'comments/create'
 
-  get 'comments/destroy'
-
-  get 'comments/show'
-
-  get 'majors/show'
-
-  get 'majors/index'
-
-  get 'password_resets/new'
-
-  get 'password_resets/edit'
-
-  get 'sessions/new'
 
   root to: "pages#home"
   get 'pages/help'
@@ -39,7 +24,6 @@ Rails.application.routes.draw do
     member do
       get :like, :dislike
     end
-    resources :comments
   end
 
   resources :majors, only: [:show, :index] do
