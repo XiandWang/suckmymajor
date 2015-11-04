@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 	has_secure_password
 
 	validates :password, presence: true, length: {minimum: 6}, allow_nil: true
+    validate :name_not_have_spaces
 
     has_many :bets, dependent: :destroy
     has_many :major_relationships, class_name: "UserMajorRelationship", 
@@ -23,6 +24,12 @@ class User < ActiveRecord::Base
     has_many :liked_bets, through: :likes_relationships, source: :bet
     
     acts_as_voter
+
+    def name_not_have_spaces
+      if name.include?(" ") || name.include?("\t")
+        errors.add(:name, "cannot have spaces")
+      end
+    end
 
 	def User.digest(string)
       cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
